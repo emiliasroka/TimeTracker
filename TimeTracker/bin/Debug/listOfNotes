@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfNoteModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NoteModel>
+    <title>To-do list for today</title>
+    <note>Buy groceries
+Complete project proposal
+Schedule doctor's appointment
+Call mom
+Go for a jog</note>
+    <Title>To-do list for today</Title>
+    <Note>Buy groceries
+Complete project proposal
+Schedule doctor's appointment
+Call mom
+Go for a jog</Note>
+  </NoteModel>
+</ArrayOfNoteModel>

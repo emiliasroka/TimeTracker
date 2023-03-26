@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<todolist>
+  <task>
+    <createdatetime>2023-03-03T07:12:49.1249</createdatetime>
+    <description>Buy groceries for the week</description>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:12:54.1254</createdatetime>
+    <description>Finish writing the report for work</description>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:12:58.1258</createdatetime>
+    <description>Schedule a dentist appointment</description>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:13:02.132</createdatetime>
+    <description>Call John to wish him a happy birthday</description>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:13:07.137</createdatetime>
+    <description>Clean the kitchen and do laundry.</description>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:13:21.1321</createdatetime>
+    <description>Pay the monthly bills</description>
+    <donedatetime>2023-03-03T07:13:33.1333</donedatetime>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:13:25.1325</createdatetime>
+    <description>Organize the closet and donate old clothes</description>
+    <donedatetime>2023-03-03T07:13:32.1332</donedatetime>
+  </task>
+  <task>
+    <createdatetime>2023-03-03T07:13:30.1330</createdatetime>
+    <description>Plan a menu for a dinner party with friends.</description>
+    <donedatetime>2023-03-03T07:13:35.1335</donedatetime>
+  </task>
+</todolist>

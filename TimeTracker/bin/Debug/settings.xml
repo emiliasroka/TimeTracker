@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <pomodoro>25</pomodoro>
+  <shortbreak>5</shortbreak>
+  <longbreak>15</longbreak>
+</settings>
