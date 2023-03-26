@@ -1,0 +1,390 @@
+﻿<Window x:Class="TimeTracker.PomodoroMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeTracker"
+        mc:Ignorable="d"
+       Title="PomodoroMainWindow" Height="470" Width="850">
+    <StackPanel Background="#7FCE7F" x:Name="MainStackPanel" >
+        <Grid Width="800">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                x:Name="btnSettings"
+                Width="45" Height="45"
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                VerticalAlignment="Top" Click="btnSettings_Click"
+                Margin="20,20, -20,-39" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#7FCE7F"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#37ae73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="100"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Image Width="30" Source="/assets/settings_icon.png" Height="35" />
+
+            </Button>
+            <Button 
+                x:Name="btnPomodoro"
+                Content="POMODORO" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="40,50,25,-39" 
+                Height="35" 
+                Grid.Column="1" Click="btnPomodoro_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#C1EFAE"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF6AAE86" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseUp">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Green" 
+                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="Stop" 
+                                    Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button 
+                x:Name="btnShortBreak"
+                Content="SHORT BREAK" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="5,50,60,-39" 
+                Height="35" 
+                Grid.Column="2" Click="btnShortBreak_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#C1EFAE"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF6AAE86"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button 
+                x:Name="btnLongBreak"
+                Content="LONG BREAK" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="-30,50,90,-39" 
+                Height="35" 
+                Grid.Column="3" Click="btnLongBreak_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#C1EFAE"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF6AAE86"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Grid Width="700" HorizontalAlignment="Center" Margin="0 100 10 0" Height="200">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock  
+                x:Name="tblMinutes"
+                Text="00" 
+                FontSize="150" 
+                FontFamily="Montserrat Bold" 
+                TextAlignment="Center" 
+                Foreground="White" 
+                Margin="100,-45,0,45"
+                Grid.Column="0"/>
+            <TextBlock 
+                Text=":" 
+                FontSize="150" 
+                FontFamily="Montserrat Bold" 
+                TextAlignment="Center"
+                Margin="0,-55,0,55"
+                Foreground="White" 
+                
+                Grid.Column="1"/>
+            <TextBlock  
+                x:Name="tblSeconds" 
+                Text="00" 
+                FontSize="150" 
+                FontFamily="Montserrat Bold" 
+                TextAlignment="Center" 
+                Foreground="White"
+                Margin="0,-45,100,45"
+                Grid.Column="2"/>
+        </Grid>
+
+        <Grid Width="550">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28*"/>
+                <ColumnDefinition Width="23"/>
+                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="29*"/>
+                <ColumnDefinition Width="82*"/>
+                <ColumnDefinition Width="183*"/>
+                <ColumnDefinition Width="183*"/>
+            </Grid.ColumnDefinitions>
+            <Button 
+                x:Name="btnStartStop"
+                Content="START" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20,-42,20,42" 
+                Height="35" 
+                Grid.Column="0" Grid.ColumnSpan="5" Click="btnStartStop_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#25744d"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#37ae73" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseUp">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="Green" 
+                                    Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="Stop" 
+                                    Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button 
+                x:Name="btnSkip"
+                Content="SKIP" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20,-42,20,42" 
+                Height="35" 
+                Grid.Column="5" Click="btnSkip_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#329C67"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#37ae73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button 
+                x:Name="btnReset"
+                Content="RESET" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20,-42,20,42" 
+                Height="35" 
+                Grid.Column="6" Click="btnReset_Click">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#329C67"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#37ae73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
+        <Grid Height="40">
+            <!--
+            <Button
+                Width="35" Height="35"
+                x:Name="btnSaveIcon"
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="707,0,58,5">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#329C67"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#37ae73"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            CornerRadius="100"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Image Width="30" Source="/assets/save_icon.png" />
+
+            </Button>
+            -->
+        </Grid>
+        <Grid Width="700">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="46.8"/>
+                <ColumnDefinition Width="3.2"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                x:Name="tblPomodoroCounter"
+                Grid.Column="0"
+                Text="POMODOROS: 0" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="#CCFFCC"
+                Margin="48,-33,1,33"/>
+            <TextBlock
+                x:Name="tblShortBreakCounter"
+                Text="SHORT BREAKS: 0"
+                TextAlignment="Center"
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="#CCFFCC" Margin="15,-33,2,33" Grid.Column="1"/>
+            <TextBlock
+                x:Name="tblLongBreakCounter"
+                Grid.Column="2"
+                Text="LONG BREAKS: 0" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="#CCFFCC"
+                TextAlignment="Center" Margin="16,-33,2,33"/>
+
+
+        </Grid>
+
+    </StackPanel>
+
+
+</Window>

@@ -1,0 +1,336 @@
+﻿<Window x:Class="TimeTracker.NotepadMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeTracker"
+        mc:Ignorable="d"
+        Title="NotepadMainWindow" Height="450" Width="800"
+        WindowStyle ="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+
+    <DockPanel Background ="#1E1E1E"
+               Margin="7">
+
+        <Border
+        Height = "28"
+        Background = "#252525"
+        DockPanel.Dock="Top"
+        MouseDown="Border_MouseDown">
+            <Grid HorizontalAlignment="Stretch">
+                <TextBlock
+                    Text="Notepad"
+                    Foreground="LightGray"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontFamily="Montserrat Bold"/>
+
+                <StackPanel 
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Width="20" Height="20"
+                        Background="Transparent"
+                        Content="___"
+                        BorderThickness="0"
+                        Foreground="Gray"
+                        FontWeight="Bold"
+                        Margin="0,0,0,3"
+                        Padding="0,0,0,3"
+                        Click="ButtonMinimize_Click"/>
+                    <Button
+                        Width="20" Height="20"
+                        Background="Transparent"
+                        Content="☐"
+                        BorderThickness="0"
+                        Foreground="Gray"
+                        FontWeight="Bold"
+                        Margin="0,0,0,3"
+                        Click="ButtonMaximized_Click"/>
+                    <Button
+                        Width="20" Height="20"
+                        Background="Transparent"
+                        Content="X"
+                        BorderThickness="0"
+                        Foreground="Gray"
+                        FontWeight="Bold"
+                        Margin="0,0,0,3"
+                        Click="CloseButton_Click"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <Border
+            Height = "350"
+            DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListView
+                    Background ="#1E1E1E"
+                    x:Name="lstNotes"
+                    Foreground="White"
+                    FontFamily="Montserrat"
+                    SelectionMode="Single" 
+                    ItemsSource="{Binding NotebookModel.Notes}"
+                    SelectedItem="{Binding SelectedItem, 
+                                Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="lstNotes_SelectionChanged">
+
+                    <ListView.Resources>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TextBlock}}}" Value="True">
+                                    <Setter Property="Background" Value="#252525"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}"
+                                            Width="175">
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <DockPanel Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Title"
+                               Foreground="LightGray"
+                                HorizontalAlignment="Left"
+                                FontFamily="Montserrat Bold"
+                               Margin="40,10,0,0"
+                               Grid.Row="0"/>
+                        <TextBlock
+                            Background="#252525"
+                            Foreground="White"
+                            Grid.Row="1"
+                            x:Name="txtbTitle"
+                            Text="{Binding SelectedItem.Title}"
+                            DataContext="{Binding ElementName=lstNotes}"
+                            FontFamily="Montserrat Bold"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Top"
+                            FontSize="13" 
+                            Height="35"
+                            TextWrapping="Wrap" 
+                            >
+                        </TextBlock>
+                        <Label
+                            Content="Note"
+                               Foreground="LightGray"
+                                HorizontalAlignment="Left"
+                                FontFamily="Montserrat Bold"
+                               Margin="40,0,0,0"
+                               Grid.Row="2">
+
+                        </Label>
+                        <ScrollViewer Grid.Row="3">
+                            <ScrollViewer.Resources>
+                                <Style TargetType="ScrollBar">
+                                    <Setter Property="Background" Value="#252525"/>
+                                    <Setter Property="BorderBrush" Value="#252525"/>
+                                    <Setter Property="Width" Value="20"/>
+                                </Style>
+                            </ScrollViewer.Resources>
+                            <TextBlock
+                                Background="#252525"
+                                Foreground="White"
+                                Grid.Row="3"
+                                x:Name="txtbNote"
+                                Text="{Binding SelectedItem.Note}"
+                                DataContext="{Binding ElementName=lstNotes}" 
+                                FontFamily="Montserrat Bold"
+                                Margin="10,0,0,0"
+                                FontSize="12" 
+                                TextWrapping="Wrap"
+                                >
+                            </TextBlock>
+                        </ScrollViewer>
+                    </Grid>
+                </DockPanel>
+
+            </Grid>
+        </Border>
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                Content="ADD" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20,12,20,0" 
+                Height="35" 
+                Grid.Column="0"
+                Name ="btnAdd" Click="btnAdd_Click" VerticalAlignment="Top">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#FF368A59"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF6AAE86" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="Green" 
+                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="Stop" 
+                                    Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button 
+                Content="EDIT" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20 0 20 0" 
+                Height="35" 
+                Grid.Column="1"
+                Name ="btnEdit" Click="btnEdit_Click">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#FF368A59"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF6AAE86" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="Green" 
+                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="Stop" 
+                                    Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button 
+                Content="DELETE" 
+                FontFamily="Montserrat Bold" 
+                FontSize="17" 
+                Foreground="White"
+                Margin="20 0 20 0" 
+                Height="35" 
+                Grid.Column="2"
+                Name ="btnDelete" Click="btnDelete_Click">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#FF368A59"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF6AAE86" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="Green" 
+                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="Stop" 
+                                    Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border 
+                            CornerRadius="17"
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </Grid>
+        </Border>
+
+
+    </DockPanel>
+</Window>
