@@ -5,6 +5,7 @@ When launching the application, a main window appears with a motivational quote 
 * [To do list](#to-do-list)
 * [Pomodoro Timer](#pomodoro-timer)
 * [Notepad](#notepad)
+
 By clicking on one of them, the user is taken to the corresponding window.
 
 ## To do list
